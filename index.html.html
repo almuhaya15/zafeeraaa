@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Surprise for Zafeera 💕</title>
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Floating elements background */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-item {
+            position: absolute;
+            font-size: 24px;
+            animation: float linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-100px) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Cute animated creatures */
+        .creature {
+            font-size: 6rem;
+            margin: 20px 0;
+            animation: bounce 1s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .creature:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .creature.sad {
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Wiggle animation for silly mode */
+        .wiggle {
+            animation: wiggle 0.3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Spinning animation */
+        .spin {
+            animation: spin 0.5s ease-in-out;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Title styles */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #d6336c;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #c2255c;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #8b4557;
+            margin-bottom: 30px;
+        }
+
+        /* Interactive questions */
+        .question-box {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #d6336c;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Button styles */
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .option-btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            border: 3px solid #ff6b6b;
+            border-radius: 50px;
+            background: white;
+            color: #d6336c;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .option-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .option-btn.correct {
+            background: #4ecdc4;
+            border-color: #4ecdc4;
+            color: white;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .option-btn.wrong {
+            background: #ff6b6b;
+            color: white;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* RUNAWAY BUTTON - The impossible button! */
+        #noBtn {
+            transition: all 0.15s ease-out;
+            position: relative;
+        }
+
+        #noBtn.runaway {
+            animation: runAway 0.2s ease-out forwards;
+        }
+
+        @keyframes runAway {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-150px, -100px) rotate(-20deg); }
+            50% { transform: translate(150px, -50px) rotate(20deg); }
+            75% { transform: translate(-100px, 100px) rotate(-15deg); }
+            100% { transform: translate(50px, -150px) rotate(10deg); }
+        }
+
+        /* Response messages */
+        .response {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .response.show {
+            display: block;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .response.angry {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .response.happy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .response.playful {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .response.silly {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Teasing questions section */
+        .tease-section {
+            margin: 30px 0;
+        }
+
+        .tease-question {
+            background: linear-gradient(135deg, #fff5f5, #ffe4e8);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tease-question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(214, 51, 108, 0.2);
+            border-color: #ff6b6b;
+        }
+
+        .tease-question h3 {
+            font-size: 1.2rem;
+            color: #d6336c;
+            margin-bottom: 10px;
+        }
+
+        .tease-question p {
+            font-size: 1rem;
+            color: #8b4557;
+        }
+
+        /* Clickable hearts */
+        .heart-btn {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 10px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.4) rotate(10deg);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Silly Quiz Styles */
+        .silly-option {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px dashed #ff9a9e;
+            border-radius: 15px;
+            background: #fff5f7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .silly-option:hover {
+            background: #ffe4e8;
+            transform: scale(1.02);
+        }
+
+        .silly-option.correct-answer {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        /* Shake to wake */
+        .shake-box {
+            padding: 40px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .shake-box:active {
+            cursor: grabbing;
+        }
+
+        .shake-box.shaken {
+            animation: celebrateShake 0.5s ease;
+        }
+
+        @keyframes celebrateShake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-15deg) scale(1.1); }
+            75% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        /* Photo reveal */
+        .photo-reveal {
+            margin: 40px 0;
+        }
+
+        .photo-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .photo-envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff8a8a, #ff6b6b);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .photo-envelope:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        .photo-envelope.opening {
+            transform: scale(0) rotate(-720deg);
+            opacity: 0;
+        }
+
+        .photo-envelope span {
+            font-size: 4rem;
+        }
+
+        .photo-envelope p {
+            color: white;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .photo-frame.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Secret message */
+        .secret-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secret-box::before {
+            content: "🎁 Click to open!";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: opacity 0.3s;
+        }
+
+        .secret-box.opened::before {
+            opacity: 0;
+        }
+
+        .secret-content {
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+
+        .secret-box.opened .secret-content {
+            opacity: 1;
+        }
+
+        .secret-content p {
+            color: white;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        /* Big Love Message Section */
+        .big-love-message {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
+            padding: 40px;
+            border-radius: 30px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(214, 51, 108, 0.3);
+            animation: lovePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes lovePulse {
+            0%, 100% { box-shadow: 0 20px 60px rgba(214, 51, 108, 0.3); }
+            50% { box-shadow: 0 20px 80px rgba(214, 51, 108, 0.5); }
+        }
+
+        .big-love-message h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .big-love-message p {
+            color: white;
+            font-size: 1.4rem;
+            line-height: 2;
+            font-weight: 500;
+        }
+
+        .big-love-message .heart-line {
+            font-size: 2rem;
+            margin: 15px 0;
+        }
+
+        /* Interactive Photo Booth */
+        .photo-booth {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .photo-frame-large {
+            width: 100%;
+            max-width: 350px;
+            height: 350px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            overflow: visible;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            cursor: grab;
+        }
+
+        .photo-frame-large:active {
+            cursor: grabbing;
+        }
+
+        .photo-frame-large.dragging {
+            opacity: 0.8;
+            transform: scale(1.05);
+            z-index: 100;
+        }
+
+        .photo-frame-large.shake-effect {
+            animation: photoShake 0.5s ease-in-out;
+        }
+
+        @keyframes photoShake {
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            20% { transform: rotate(-5deg) translateX(-15px); }
+            40% { transform: rotate(5deg) translateX(15px); }
+            60% { transform: rotate(-3deg) translateX(-10px); }
+            80% { transform: rotate(3deg) translateX(10px); }
+        }
+
+        .photo-frame-large.rotating {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .photo-frame-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .photo-frame-large img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Rotation controls */
+        .rotation-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .rotate-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #ff6b6b;
+            background: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rotate-btn:hover {
+            background: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        .rotate-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Photo action buttons */
+        .photo-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-action-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #ff6b6b;
+            background: white;
+            color: #d6336c;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .photo-action-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Photo click hint */
+        .photo-hint {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #2e7d32;
+        }
+
+        .photo-hint strong {
+            color: #d6336c;
+        }
+
+        .photo-stickers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .sticker-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #ff6b6b;
+            background: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticker-btn:hover {
+            transform: scale(1.2);
+            background: #ff6b6b;
+        }
+
+        .photo-instructions {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #e65100;
+        }
+
+        .photo-instructions strong {
+            color: #d6336c;
+        }
+
+        /* Draggable stickers on photo */
+        .placed-sticker {
+            position: absolute;
+            font-size: 2.5rem;
+            cursor: move;
+            user-select: none;
+            animation: stickerPop 0.3s ease-out;
+            z-index: 10;
+        }
+
+        @keyframes stickerPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Memory cards */
+        .memory-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px) rotate(5deg);
+        }
+
+        .memory-card.flipped {
+            background: #ff6b6b;
+            animation: flipCard 0.5s ease;
+        }
+
+        @keyframes flipCard {
+            0% { transform: rotateY(0); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* Silly fortune teller */
+        .fortune-ball {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at 30% 30%, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .fortune-ball:hover {
+            transform: scale(1.1);
+        }
+
+        .fortune-ball.shake {
+            animation: ballShake 0.5s ease-in-out;
+        }
+
+        @keyframes ballShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-10px) rotate(-10deg); }
+            75% { transform: translateX(10px) rotate(10deg); }
+        }
+
+        .fortune-ball span {
+            font-size: 3rem;
+        }
+
+        .fortune-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #667eea;
+            min-height: 60px;
+            margin-top: 20px;
+        }
+
+        /* Random fun fact box */
+        .fun-fact {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fun-fact:hover {
+            transform: scale(1.03);
+        }
+
+        .fun-fact p {
+            color: white;
+            font-style: italic;
+        }
+
+        /* Final celebration */
+        .celebration {
+            margin-top: 40px;
+        }
+
+        .final-message {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .final-message p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #d6336c;
+            line-height: 1.8;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            top: -12px;
+            animation: confetti-fall linear forwards;
+            z-index: 100;
+            border-radius: 2px;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .question-box {
+                padding: 20px;
+            }
+            
+            .option-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .creature {
+                font-size: 4rem;
+            }
+            
+            .photo-container {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .memory-card {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            
+            .final-message p {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background -->
+    <div class="floating-bg" id="floatingBg"></div>
+
+    <div class="container">
+        <!-- Section 1: First Question -->
+        <div class="section active" id="section1">
+            <div class="creature" onclick="clickCreature(1)">🐰</div>
+            <h1>Hey Zafeera! 💕</h1>
+            <p class="subtitle">I have something SPECIAL for you...</p>
+            <button class="option-btn" onclick="nextSection(2)">Open Present 🎁</button>
+            <p style="margin-top:20px;color:#8b4557;font-size:0.9rem;">(Psst... click the bunny first! 🐰)</p>
+        </div>
+
+        <!-- Section 1.5: Hidden Bunny Click -->
+        <div class="section" id="section1b">
+            <div class="creature" onclick="clickCreature(1)">🥳</div>
+            <h1>You found me! 🎉</h1>
+            <p class="subtitle">Okay okay, here's the real surprise!</p>
+            <button class="option-btn" onclick="nextSection(2)">Let's Go! 🚀</button>
+        </div>
+
+        <!-- Section 2: Will you be my Valentine? -->
+        <div class="section" id="section2">
+            <div class="creature" onclick="clickCreature(2)">🐱</div>
+            <h1>Will you be my Valentine? 💖</h1>
+            <div class="question-box">
+                <p class="question-text">Zafeera, will you be my Valentine? 🥺</p>
+                <div class="options">
+                    <button class="option-btn" onclick="handleValentine('yes')">Yes! 💕</button>
+                    <button class="option-btn" id="noBtn" onmouseenter="startRunning()" onclick="tryToCatch()">No 😅</button>
+                </div>
+                <div class="response" id="valentineResponse"></div>
+                <p id="impossibleHint" style="margin-top:15px;color:#8b4557;font-size:0.9rem;display:none;">🤔 Hmm, try clicking it... I dare you! 😏</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Silly Quiz -->
+        <div class="section" id="section3">
+            <div class="creature" onclick="clickCreature(3)">🦊</div>
+            <h1>Silly Quiz Time! 🎭</h1>
+            <p class="subtitle">Answer these VERY important questions...</p>
+            
+            <div class="question-box">
+                <p class="question-text">Question 1: What is my favorite thing about Zafeera?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Her wifi password 😴</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Her snacks 🍪</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q1')">Everything! 💕</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Her Netflix password 📺</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 2: How cute is Zafeera?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Like a potato 🥔</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">42/10 (too cute to calculate) 🧮</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">On a scale of 1 to meh 😑</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q2')">INFINTELY CUTE! 🥰</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 3: Should Zafeera say yes to everything I say?</p>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q3')">Obviously YES! 🙄</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">No (I'm rebellious) 😈</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">I'll think about it... 🤔</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Ask me again tomorrow 📅</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 4: What's the best thing about me?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">My beautiful eyes 👀</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">My charming personality 😏</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q4')">ALL OF THE ABOVE! 💕</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Nothing 😅</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 5: If I were a vegetable, what would I be?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">A boring carrot 🥕</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q5')">A cute baby corn! 🌽</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">A grumpy potato 🥔</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Rotten tomato 🍅</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 6: How many times should I say "I love you" per day?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Once is enough 😴</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q6')">INFINITY + 1! ♾️</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Zero (too cheesy) 🧀</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Only on leap years 📅</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 7: What does Zafeera call me?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Babe 😴</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Honey 🍯</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q7')">Memet & Brazilian Sheikh 💕</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">My King 👑</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 8: What's the name of Zafeera's cat?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Luna 🐱</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Milo 🐱</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Bella 🐱</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q8')">Sumbul 🐱</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 9: What is Zafeera's favorite food?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Pizza 🍕</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Sushi 🍣</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q9')">Seblak 🌶️</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Burgers 🍔</div>
+                
+                <p class="question-text" style="margin-top:25px;">Question 10: When did we meet?</p>
+                <div class="silly-option" onclick="wrongAnswer(this)">Christmas Day 🎄</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">New Year's Eve 🎆</div>
+                <div class="silly-option" onclick="wrongAnswer(this)">Valentine's Day 💕</div>
+                <div class="silly-option correct-answer" onclick="correctAnswer(this, 'q10')">July 4, 2025 (Her Birthday! 🎂)</div>
+                
+                <div id="quizResult" class="response show silly" style="margin-top:20px;">
+                    <p>🎉 Quiz Complete! You passed the "Being Amazing" test! 🎉</p>
+                </div>
+                
+                <button class="option-btn" style="margin-top:20px;" onclick="nextSection(4)">Continue 💖</button>
+            </div>
+        </div>
+
+        <!-- Section 4: Shake to Wake -->
+        <div class="section" id="section4">
+            <div class="creature" onclick="clickCreature(4)">😴</div>
+            <h1>WAKE UP! 🫨</h1>
+            <p class="subtitle">Shake the box to wake up the love!</p>
+            
+            <div class="question-box">
+                <div class="shake-box" id="shakeBox" onmousedown="startShake()" ontouchstart="startShake()">
+                    <span style="font-size:4rem;">🎁</span>
+                    <p style="margin-top:15px;color:#8b4557;">SHAKE ME!</p>
+                </div>
+                
+                <div id="shakeMessage" class="response show playful" style="margin-top:20px;">
+                    <p>😴 *yawn* I'm sleeping... wake me up!</p>
+                </div>
+                
+                <button class="option-btn" style="margin-top:20px;" onclick="nextSection(5)">Next! ✨</button>
+            </div>
+        </div>
+
+        <!-- Section 5: Fortune Teller -->
+        <div class="section" id="section5">
+            <div class="creature" onclick="clickCreature(5)">🔮</div>
+            <h1>Magic Fortune Teller! ✨</h1>
+            <p class="subtitle">Click the crystal ball for your fortune...</p>
+            
+            <div class="question-box">
+                <div class="fortune-ball" onclick="tellFortune()">
+                    <span>🔮</span>
+                </div>
+                <div class="fortune-text" id="fortuneText">Click the crystal ball... 👆</div>
+                
+                <button class="option-btn" style="margin-top:30px;" onclick="nextSection(6)">Next Surprise 💫</button>
+            </div>
+        </div>
+
+        <!-- Section 6: Teasing Questions -->
+        <div class="section" id="section6">
+            <div class="creature" onclick="clickCreature(6)">🦁</div>
+            <h1>Quick Questions! 😏</h1>
+            <p class="subtitle">Don't cheat... answer honestly!</p>
+            
+            <div class="question-box">
+                <div class="fun-fact" onclick="factReaction()">
+                    <p>❓ Do you think I'm funny?</p>
+                    <p style="margin-top:10px;font-size:0.9rem;">(Click for answer!)</p>
+                </div>
+                
+                <div class="fun-fact" onclick="factReaction2()">
+                    <p>❓ Am I the best thing since sliced bread?</p>
+                    <p style="margin-top:10px;font-size:0.9rem;">(Click for answer!)</p>
+                </div>
+                
+                <div class="fun-fact" onclick="factReaction3()">
+                    <p>❓ Should we get matching Halloween costumes?</p>
+                    <p style="margin-top:10px;font-size:0.9rem;">(Click for answer!)</p>
+                </div>
+                
+                <div id="factReactions" class="response show playful" style="margin-top:20px;">
+                    <p>😜 Go on, click them! I know you want to! 👆</p>
+                </div>
+                
+                <button class="option-btn" style="margin-top:20px;" onclick="nextSection(7)">Almost there! 🎉</button>
+            </div>
+        </div>
+
+        <!-- Section 7: Click the hearts -->
+        <div class="section" id="section7">
+            <div class="creature" onclick="clickCreature(7)">🐨</div>
+            <h1>Spread the love! 💕</h1>
+            <p class="subtitle">Click all the hearts! (They're shy...)</p>
+            
+            <div class="question-box">
+                <div id="heartContainer">
+                    <span class="heart-btn" onclick="clickHeart(this)">💕</span>
+                    <span class="heart-btn" onclick="clickHeart(this)">💖</span>
+                    <span class="heart-btn" onclick="clickHeart(this)">💗</span>
+                    <span class="heart-btn" onclick="clickHeart(this)">💘</span>
+                    <span class="heart-btn" onclick="clickHeart(this)">❤️</span>
+                    <span class="heart-btn" onclick="clickHeart(this)">💝</span>
+                </div>
+                <p id="heartCount" style="margin-top:20px;color:#d6336c;font-weight:600;">0/6 hearts clicked</p>
+                <p style="margin-top:10px;color:#8b4557;font-size:0.9rem;">(Hint: They might run away if you're too slow! 🏃)</p>
+                <button id="heartContinueBtn" class="option-btn" style="margin-top:20px;display:none;" onclick="nextSection(8)">Continue to Love Letter 💕</button>
+            </div>
+        </div>
+
+        <!-- Section 8: Big Love Message -->
+        <div class="section" id="section8">
+            <div class="creature" onclick="clickCreature(8)">💕</div>
+            <h1>Here's How Much I Love You... 💖</h1>
+            
+            <div class="big-love-message">
+                <h2>My Dearest Zafeera Almuhaya,</h2>
+                <p>From the moment I met you on July 4, 2025 (your birthday!), my life has been brighter, happier, and more beautiful. 🌟🎂</p>
+                
+                <div class="heart-line">💕 💕 💕</div>
+                
+                <p>You are the first thing I think about when I wake up and the last thing on my mind before I sleep. 😴</p>
+                <p>Your smile lights up my entire world like a thousand fireworks! 🎆</p>
+                <p>I love your lips - they make the most beautiful smile! 💋</p>
+                <p>Every laugh we share, every moment we spend together, every memory we make... they are all treasures I will cherish forever. 💎</p>
+                
+                <div class="heart-line">❤️ ❤️ ❤️</div>
+                
+                <p>I love you more than all the stars in the sky, more than all the grains of sand on all the beaches! 🌊⭐</p>
+                <p>I love you more than pizza (and you know that's saying A LOT)! 🍕</p>
+                <p>I love you to the moon and back... MULTIPLE times! 🌙🚀</p>
+                
+                <div class="heart-line">💖 💖 💖</div>
+                
+                <p>Even Sumbul 🐱 can't compete with how much I love you!</p>
+                <p>Memet 💕 Brazilian Sheikh - those are my favorite names from you!</p>
+                <p>Your favorite Seblak 🌶️ is almost as sweet as you!</p>
+                
+                <div class="heart-line">💗 💗 💗</div>
+                
+                <p style="font-size:1.6rem;">You are my best friend, my soulmate, my everything! 💍</p>
+                <p style="font-size:1.6rem;">I LOVE YOU ZAFEERA ALMUHAYA! ❤️‍🔥</p>
+                
+                <div class="heart-line" style="font-size:3rem;">💕💕💕</div>
+            </div>
+            
+            <button class="option-btn" onclick="nextSection(9)">See Our Photo! 📸</button>
+        </div>
+
+        <!-- Section 9: Interactive Photo Booth -->
+        <div class="section" id="section9">
+            <div class="creature" onclick="clickCreature(9)">📸</div>
+            <h1>Our Special Moment! ✨</h1>
+            <p class="subtitle">Add some fun stickers to our photo! 🎉</p>
+            
+            <div class="photo-booth">
+                <!-- REPLACE THE IMAGE URL BELOW WITH YOUR OWN PHOTO -->
+                <!-- Example: Replace the src with your photo URL like: src="your-photo.jpg" -->
+                <div class="photo-frame-large" id="photoFrameLarge" onclick="shakePhoto()">
+                    <img id="ourPhoto" src="meAndZafeera.jpeg" alt="Our photo">
+                    <div id="stickerContainer"></div>
+                </div>
+                
+                <div class="rotation-controls">
+                    <button class="rotate-btn" onclick="rotateLeft()">&#8634;</button>
+                    <button class="rotate-btn" onclick="rotateRight()">&#8635;</button>
+                </div>
+                
+                <div class="photo-instructions">
+                    <strong>👆 Click the stickers below to add them to your photo!</strong><br>
+                    <strong>📸 Click the photo to make it shake!</strong><br>
+                    <strong>✋ Drag the photo to move it around!</strong><br>
+                    <strong>🔄 Use buttons to rotate the photo!</strong>
+                </div>
+                
+                <div class="photo-stickers">
+                    <button class="sticker-btn" onclick="addSticker('💕')">💕</button>
+                    <button class="sticker-btn" onclick="addSticker('💖')">💖</button>
+                    <button class="sticker-btn" onclick="addSticker('💗')">💗</button>
+                    <button class="sticker-btn" onclick="addSticker('💘')">💘</button>
+                    <button class="sticker-btn" onclick="addSticker('❤️')">❤️</button>
+                    <button class="sticker-btn" onclick="addSticker('💝')">💝</button>
+                    <button class="sticker-btn" onclick="addSticker('🥰')">🥰</button>
+                    <button class="sticker-btn" onclick="addSticker('😘')">😘</button>
+                    <button class="sticker-btn" onclick="addSticker('✨')">✨</button>
+                    <button class="sticker-btn" onclick="addSticker('🌟')">🌟</button>
+                    <button class="sticker-btn" onclick="addSticker('💐')">💐</button>
+                    <button class="sticker-btn" onclick="addSticker('🎁')">🎁</button>
+                </div>
+                
+                <button class="option-btn" style="margin-top:20px;" onclick="clearStickers()">Clear Stickers 🗑️</button>
+            </div>
+            
+            <button class="option-btn" onclick="nextSection(10)">Final Surprise! 🎉</button>
+        </div>
+
+        <!-- Section 10: Final -->
+        <div class="section" id="section10">
+            <div class="creature" onclick="clickCreature(10)">🐷</div>
+            <h1>You're my Valentine! 💍</h1>
+            
+            <div class="celebration">
+                <div class="final-message">
+                    <p>
+                        My dearest Zafeera Almuhaya,<br><br>
+                        You've made me the happiest person ever!<br><br>
+                        Will you be my Valentine<br>
+                        <strong>FOREVER?</strong> 💕<br><br>
+                        Aku mencintaimu sayangku<br>
+                        <strong>Your Brazilian Sheikh</strong> ❤️
+                    </p>
+                </div>
+            </div>
+            
+            <div style="margin-top:30px;">
+                <span class="heart-btn" style="font-size:4rem;">💕</span>
+                <span class="heart-btn" style="font-size:4rem;">💖</span>
+                <span class="heart-btn" style="font-size:4rem;">💗</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track current section
+        let currentSection = 1;
+        let heartsClicked = 0;
+        let quizScore = 0;
+        let shakeCount = 0;
+        let isRunning = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // ===== RANDOM FUNNY POPUPS =====
+        const funnyPopups = [
+            "Psst... you're amazing! 💕",
+            "Did you know? Zafeera is awesome! ✨",
+            "Warning: Extreme cuteness ahead! 🥰",
+            "This page loves you! 😘",
+            "Fun fact: You're the best! 🎉",
+            "Don't forget to smile! 😊",
+            "You're doing great! Keep going! 💪",
+            "Have you clicked the creature yet? 🐰",
+            "Spoiler: You're loved! ❤️",
+            "Hydrate and take breaks! 💧",
+            "Your smile is beautiful! 😄",
+            "You're 1 step closer to the surprise! 🎁"
+        ];
+        
+        // Show random popup every 15 seconds
+        setInterval(() => {
+            if (currentSection < 10) {
+                showRandomPopup();
+            }
+        }, 15000);
+        
+        function showRandomPopup() {
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #ff9a9e, #fecfef);
+                padding: 15px 25px;
+                border-radius: 25px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                z-index: 1000;
+                animation: popupSlide 0.5s ease-out, popupFade 0.5s ease-out 3s forwards;
+                font-family: 'Poppins', sans-serif;
+                color: #d6336c;
+                font-weight: 600;
+                cursor: pointer;
+            `;
+            popup.innerHTML = funnyPopups[Math.floor(Math.random() * funnyPopups.length)];
+            popup.onclick = () => popup.remove();
+            document.body.appendChild(popup);
+            
+            // Add keyframes dynamically
+            if (!document.getElementById('popupStyles')) {
+                const style = document.createElement('style');
+                style.id = 'popupStyles';
+                style.textContent = `
+                    @keyframes popupSlide {
+                        from { transform: translateX(100px); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes popupFade {
+                        to { opacity: 0; transform: translateY(-20px); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            setTimeout(() => popup.remove(), 3500);
+        }
+
+        // ===== CREATURE REACTIONS ON CLICK =====
+        const creatureExpressions = {
+            'section1': { default: '🐰', clicked: '🥰', reactions: ['😘', '💕', '❤️', '🥳'] },
+            'section1b': { default: '🥳', clicked: '😍', reactions: ['🤩', '💖', '✨', '🎉'] },
+            'section2': { default: '🐱', clicked: '😻', reactions: ['😽', '💗', '❤️', '😸'] },
+            'section3': { default: '🦊', clicked: '😎', reactions: ['🤓', '😏', '🙃', '😜'] },
+            'section4': { default: '😴', clicked: '😮', reactions: ['😲', '🤯', '😳', '🫨'] },
+            'section5': { default: '🔮', clicked: '✨', reactions: ['🌟', '💫', '⭐', '🪄'] },
+            'section6': { default: '🦁', clicked: '😏', reactions: ['😜', '🤭', '😝', '🤪'] },
+            'section7': { default: '🐨', clicked: '💕', reactions: ['❤️', '💖', '💗', '💘'] },
+            'section8': { default: '🤫', clicked: '😘', reactions: ['💋', '😚', '🥰', '💝'] },
+            'section9': { default: '🦋', clicked: '🌸', reactions: ['🌺', '🌷', '💐', '🌻'] },
+            'section10': { default: '🐷', clicked: '😘', reactions: ['💕', '💖', '❤️', '💗'] }
+        };
+        
+        function clickCreature(sectionId) {
+            const section = document.getElementById('section' + sectionId);
+            if (!section) return;
+            
+            const creature = section.querySelector('.creature');
+            if (!creature) return;
+            
+            const data = creatureExpressions['section' + sectionId];
+            if (!data) return;
+            
+            // Add click animation
+            creature.style.transform = 'scale(1.5)';
+            setTimeout(() => creature.style.transform = 'scale(1)', 200);
+            
+            // Change to random reaction
+            const randomReaction = data.reactions[Math.floor(Math.random() * data.reactions.length)];
+            creature.textContent = randomReaction;
+            
+            // Show reaction message
+            showCreatureMessage(data.clicked);
+            
+            // Reset after delay
+            setTimeout(() => {
+                creature.textContent = data.default;
+            }, 1500);
+        }
+        
+        function showCreatureMessage(emoji) {
+            const messages = [
+                "Ooo! That tickles! 😂",
+                "Hehe! Do it again! 😜",
+                "You're making me blush! 🥰",
+                "More! More! ✨",
+                "I love your attention! 💕",
+                "Click click click! 🖱️",
+                "Best human ever! 🏆",
+                "You're so silly! 🤪"
+            ];
+            
+            const msg = document.createElement('div');
+            msg.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 20px 30px;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: popIn 0.3s ease-out;
+                font-family: 'Poppins', sans-serif;
+                color: #d6336c;
+                font-size: 1.1rem;
+            `;
+            msg.innerHTML = `<span style="font-size:2rem;">${emoji}</span><br>${messages[Math.floor(Math.random() * messages.length)]}`;
+            document.body.appendChild(msg);
+            
+            setTimeout(() => msg.remove(), 1500);
+        }
+
+        // Create floating background elements
+        function createFloatingElements() {
+            const bg = document.getElementById('floatingBg');
+            const elements = ['💕', '💖', '💗', '💘', '❤️', '💝', '🐰', '🐱', '🐻', '🦊', '🌸', '✨', '🎉', '🥳', '😘'];
+            
+            for (let i = 0; i < 30; i++) {
+                const item = document.createElement('div');
+                item.className = 'floating-item';
+                item.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+                item.style.left = Math.random() * 100 + '%';
+                item.style.animationDuration = (Math.random() * 4 + 5) + 's';
+                item.style.animationDelay = Math.random() * 5 + 's';
+                item.style.fontSize = (Math.random() * 15 + 18) + 'px';
+                bg.appendChild(item);
+            }
+        }
+
+        // Navigate to next section
+        function nextSection(num) {
+            document.getElementById('section' + currentSection).classList.remove('active');
+            currentSection = num;
+            document.getElementById('section' + num).classList.add('active');
+            
+            if (num === 10) {
+                setTimeout(createConfetti, 500);
+            }
+        }
+
+        // ===== RUNAWAY BUTTON - IMPOSSIBLE TO CLICK! =====
+        function startRunning() {
+            if (isRunning) return;
+            isRunning = true;
+            
+            const noBtn = document.getElementById('noBtn');
+            const hint = document.getElementById('impossibleHint');
+            hint.style.display = 'block';
+            
+            // Start the runaway animation
+            runAwayButton();
+            
+            // Keep running away periodically
+            setInterval(() => {
+                if (currentSection === 2) {
+                    runAwayButton();
+                }
+            }, 500);
+        }
+
+        function runAwayButton() {
+            const noBtn = document.getElementById('noBtn');
+            noBtn.classList.add('runaway');
+            
+            // Random position within the viewport
+            const x = (Math.random() - 0.5) * 300;
+            const y = (Math.random() - 0.5) * 300;
+            const rotation = (Math.random() - 0.5) * 60;
+            
+            noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+            
+            setTimeout(() => {
+                noBtn.classList.remove('runaway');
+            }, 200);
+        }
+
+        function tryToCatch() {
+            const noBtn = document.getElementById('noBtn');
+            const funnyResponses = [
+                "😅 Woosh! Too slow!",
+                "😏 Catch me if you can!",
+                "🏃 I'm too fast for you!",
+                "😜 You can't catch love!",
+                "😂 Nice try! But I'm slippery!",
+                "🕺 Dancing away from your rejection!",
+                "🚀 Blast off!",
+                "🐢 Actually I'm a turtle in disguise... just kidding, RUN!",
+                "💨 Poof! Gone!"
+            ];
+            
+            const response = document.getElementById('valentineResponse');
+            const randomResponse = funnyResponses[Math.floor(Math.random() * funnyResponses.length)];
+            
+            response.className = 'response show angry';
+            response.innerHTML = `<p>${randomResponse}</p><p style="margin-top:10px;">Just click YES already! 😜</p>`;
+            
+            // Make it run away even more dramatically
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => runAwayButton(), i * 100);
+            }
+        }
+
+        // Handle Valentine question
+        function handleValentine(answer) {
+            const response = document.getElementById('valentineResponse');
+            const noBtn = document.getElementById('noBtn');
+            
+            if (answer === 'yes') {
+                response.className = 'response show happy';
+                response.innerHTML = '<p style="font-size:1.5rem;">💕 YAY! You said YES! 💕</p><p>My heart is so happy! Now you\'re stuck with me forever! 😜</p>';
+                createConfetti();
+                setTimeout(() => nextSection(3), 2500);
+            }
+        }
+
+        // Silly quiz functions
+function wrongAnswer(element) {
+    const funnyResponses = [
+        "😅 Wrong! But I love you anyway! 💕",
+        "🤔 Are you sure about that? Try again!",
+        "😏 That's not right... but you're still cute!",
+        "😂 Hmmm... negative IQ moment?",
+        "🙈 Oops! Try using your brain this time!"
+    ];
+
+    element.style.background = "#ffcccb";
+    element.style.transform = "scale(1.05)";
+
+    const random = funnyResponses[Math.floor(Math.random() * funnyResponses.length)];
+    alert(random);
+}
+
+function correctAnswer(element, question) {
+    element.style.background = "#c8e6c9";
+    element.style.transform = "scale(1.1)";
+    quizScore++;
+
+    if (quizScore >= 10) {
+        document.getElementById("quizResult").style.display = "block";
+        document.getElementById("quizResult").innerHTML = '<p style="font-size:1.3rem;">🎉 PERFECT SCORE! 🎉<br>You are officially the BEST!<br>10/10 correct answers! 🏆</p>';
+    }
+}
+
+        // ===== SHAKE TO WAKE =====
+        let shakeStart = null;
+        
+        function startShake() {
+            const box = document.getElementById('shakeBox');
+            const message = document.getElementById('shakeMessage');
+            
+            if (shakeCount < 10) {
+                shakeCount++;
+                box.classList.add('shaken');
+                message.innerHTML = '<p>😴 *yawn* Still sleepy...</p>';
+                message.className = 'response show playful';
+                
+                setTimeout(() => box.classList.remove('shaken'), 500);
+                
+                if (shakeCount >= 10) {
+                    message.innerHTML = '<p style="font-size:1.3rem;">🥰 OK OK! I\'M AWAKE! 💕</p>';
+                    message.className = 'response show happy';
+                }
+            }
+        }
+
+        // ===== FORTUNE TELLER =====
+        function tellFortune() {
+            const ball = document.querySelector('.fortune-ball');
+            const text = document.getElementById('fortuneText');
+            
+            ball.classList.add('shake');
+            
+            const fortunes = [
+                "💕 You will have a love-filled day!",
+                "✨ Great things are coming your way!",
+                "🥰 Someone thinks you're amazing!",
+                "💖 Your heart is about to skip a beat!",
+                "🌟 Luck is on your side today!",
+                "😘 Get ready for surprises!",
+                "💝 Love is in the air!",
+                "❤️ Something wonderful is happening!"
+            ];
+            
+            setTimeout(() => {
+                ball.classList.remove('shake');
+                text.innerHTML = fortunes[Math.floor(Math.random() * fortunes.length)];
+            }, 500);
+        }
+
+        // ===== FUN FACT REACTIONS =====
+        function factReaction() {
+            const facts = document.getElementById('factReactions');
+            facts.innerHTML = '<p>😂 Of course I\'m funny! I\'m dating material for a reason! 😜</p>';
+            facts.className = 'response show happy';
+        }
+
+        function factReaction2() {
+            const facts = document.getElementById('factReactions');
+            facts.innerHTML = '<p>🥖 Obviously! Even better than bread! 🍞</p>';
+            facts.className = 'response show happy';
+        }
+
+        function factReaction3() {
+            const facts = document.getElementById('factReactions');
+            facts.innerHTML = '<p>🎃 Only if you want to be my witchy Valentine! 🧙‍♀️</p>';
+            facts.className = 'response show happy';
+        }
+
+        // ===== CLICK HEARTS =====
+        const heartMessages = [
+            "💕 My heart skips a beat!",
+            "💖 You're amazing!",
+            "💗 Every moment with you is precious!",
+            "💘 You light up my world!",
+            "❤️ I love you more than words!",
+            "💝 You're my everything!"
+        ];
+        
+        function clickHeart(element) {
+            if (element.style.opacity === '0.5') return;
+            
+            // Show sweet message
+            const msg = document.createElement('div');
+            msg.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #ff9a9e, #fecfef);
+                padding: 20px 30px;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(214, 51, 108, 0.3);
+                z-index: 1000;
+                animation: popIn 0.3s ease-out, heartMessageFade 1.5s ease-out 1s forwards;
+                font-family: 'Poppins', sans-serif;
+                color: white;
+                font-size: 1.1rem;
+                font-weight: 600;
+                text-align: center;
+            `;
+            msg.innerHTML = `<span style="font-size:2rem;">${element.textContent}</span><br>${heartMessages[heartsClicked]}`;
+            document.body.appendChild(msg);
+            
+            // Add fade animation dynamically
+            if (!document.getElementById('heartMsgStyles')) {
+                const style = document.createElement('style');
+                style.id = 'heartMsgStyles';
+                style.textContent = `
+                    @keyframes heartMessageFade {
+                        to { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            setTimeout(() => msg.remove(), 2500);
+            
+            element.style.opacity = '0.5';
+            element.style.transform = 'scale(0.8)';
+            heartsClicked++;
+            
+            document.getElementById('heartCount').textContent = heartsClicked + '/6 hearts clicked';
+            
+            if (heartsClicked >= 6) {
+                document.getElementById('heartCount').innerHTML = '<span style="font-size:1.3rem;">💕 YOU FOUND ALL THE LOVE! 💕</span>';
+                // Show continue button
+                const continueBtn = document.getElementById('heartContinueBtn');
+                if (continueBtn) continueBtn.style.display = 'inline-block';
+            }
+        }
+
+        // ===== SECRET BOX =====
+        function openSecret(element) {
+            element.classList.toggle('opened');
+        }
+
+        // ===== PHOTO REVEAL =====
+        function revealPhoto() {
+            const envelope = document.getElementById('photoEnvelope');
+            const frame = document.getElementById('photoFrame');
+            
+            envelope.classList.add('opening');
+            
+            setTimeout(() => {
+                frame.classList.add('show');
+            }, 300);
+        }
+
+        // ===== CONFETTI =====
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#95e1d3', '#f38181', '#aa96da', '#fcbad3', '#a8d8ea'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // ===== PHOTO INTERACTION FUNCTIONS =====
+        
+        // Current rotation angle
+        let currentRotation = 0;
+        
+        // Shake effect when clicking the photo
+        function shakePhoto() {
+            const photoFrame = document.getElementById('photoFrameLarge');
+            photoFrame.classList.add('shake-effect');
+            
+            // Remove the class after animation completes
+            setTimeout(() => {
+                photoFrame.classList.remove('shake-effect');
+            }, 500);
+        }
+        
+        // Rotate left (counter-clockwise)
+        function rotateLeft() {
+            const photoFrame = document.getElementById('photoFrameLarge');
+            currentRotation -= 45;
+            photoFrame.style.transform = `rotate(${currentRotation}deg)`;
+            photoFrame.classList.add('rotating');
+            setTimeout(() => {
+                photoFrame.classList.remove('rotating');
+            }, 500);
+        }
+        
+        // Rotate right (clockwise)
+        function rotateRight() {
+            const photoFrame = document.getElementById('photoFrameLarge');
+            currentRotation += 45;
+            photoFrame.style.transform = `rotate(${currentRotation}deg)`;
+            photoFrame.classList.add('rotating');
+            setTimeout(() => {
+                photoFrame.classList.remove('rotating');
+            }, 500);
+        }
+        
+        // Add sticker to photo
+        function addSticker(emoji) {
+            const container = document.getElementById('stickerContainer');
+            const sticker = document.createElement('div');
+            sticker.className = 'placed-sticker';
+            sticker.textContent = emoji;
+            
+            // Random position within the photo frame
+            const randomX = Math.random() * 200 + 20;
+            const randomY = Math.random() * 200 + 20;
+            sticker.style.left = randomX + 'px';
+            sticker.style.top = randomY + 'px';
+            
+            // Make sticker draggable within the photo
+            makeStickerDraggable(sticker);
+            
+            container.appendChild(sticker);
+        }
+        
+        // Make individual sticker draggable
+        function makeStickerDraggable(sticker) {
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+            
+            sticker.addEventListener('mousedown', dragStart);
+            sticker.addEventListener('touchstart', dragStart, {passive: false});
+            
+            function dragStart(e) {
+                e.preventDefault();
+                isDragging = true;
+                
+                const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+                
+                startX = clientX;
+                startY = clientY;
+                initialX = parseInt(sticker.style.left || 0);
+                initialY = parseInt(sticker.style.top || 0);
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchmove', drag, {passive: false});
+                document.addEventListener('touchend', dragEnd);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+                
+                const deltaX = clientX - startX;
+                const deltaY = clientY - startY;
+                
+                sticker.style.left = (initialX + deltaX) + 'px';
+                sticker.style.top = (initialY + deltaY) + 'px';
+            }
+            
+            function dragEnd() {
+                isDragging = false;
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('touchend', dragEnd);
+            }
+        }
+        
+        // Clear all stickers
+        function clearStickers() {
+            const container = document.getElementById('stickerContainer');
+            container.innerHTML = '';
+        }
+        
+        // Make photo frame draggable
+        function makeDraggable() {
+            const photoFrame = document.getElementById('photoFrameLarge');
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+            
+            photoFrame.addEventListener('mousedown', dragStart);
+            photoFrame.addEventListener('touchstart', dragStart, {passive: false});
+            
+            function dragStart(e) {
+                // Don't start dragging if clicking on a sticker
+                if (e.target.classList.contains('placed-sticker')) return;
+                
+                isDragging = true;
+                photoFrame.classList.add('dragging');
+                
+                const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+                
+                startX = clientX;
+                startY = clientY;
+                
+                // Get current position (considering rotation)
+                const rect = photoFrame.getBoundingClientRect();
+                initialX = rect.left;
+                initialY = rect.top;
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchmove', drag, {passive: false});
+                document.addEventListener('touchend', dragEnd);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+                
+                const deltaX = clientX - startX;
+                const deltaY = clientY - startY;
+                
+                photoFrame.style.position = 'fixed';
+                photoFrame.style.left = (initialX + deltaX) + 'px';
+                photoFrame.style.top = (initialY + deltaY) + 'px';
+                photoFrame.style.margin = '0';
+            }
+            
+            function dragEnd() {
+                isDragging = false;
+                photoFrame.classList.remove('dragging');
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('touchend', dragEnd);
+            }
+        }
+
+        // Initialize floating elements on page load
+        createFloatingElements();
+        
+        // Initialize draggable photo frame
+        makeDraggable();
+    </script>
+</body>
+</html>
